@@ -1,0 +1,28 @@
+data_params:
+  batch_size: 64
+  num_workers: 32
+train_params:
+  name: bi_lstm
+  model: models.LstmCrf
+  model_params:
+    pretrained: False
+    num_classes: 1
+  loss: losses.nn.MSELoss
+  loss_params: {}
+  metrics: [metrics.ner_token_f1]
+  steps_per_epoch: 5
+  accumulation: 1
+#  weights: /mnt/ssd1/datasets/imet/weights/weights/se_rn50/0/tt_31_0.53751.pt
+stages:
+-
+  load_best: False
+  optimizer: Adam
+  optimizer_params:
+    lr: 0.0003
+  scheduler: ReduceLROnPlateau
+  scheduler_params:
+    patience: 4
+    factor: 0.5
+    min_lr: 0.00005
+    verbose: True
+  epochs: 100
