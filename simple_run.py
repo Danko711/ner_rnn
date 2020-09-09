@@ -28,7 +28,7 @@ print(device)
 
 import os
 print(os.getcwd())
-ft_vectors = gensim.models.fasttext.load_facebook_model('./fasttext/wiki.simple.bin')
+ft_vectors = gensim.models.fasttext.load_facebook_model('./fasttext/fasttext/wiki.simple.bin')
 print('fasttext loaded')
 
 
