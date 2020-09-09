@@ -49,7 +49,7 @@ model = LstmCrf(ft_vectors.wv.vectors,
 
 model.to(device)
 
-loss = model.loss()
+loss = model.loss
 
 optimizer = optim.Adam(model.parameters())
 
