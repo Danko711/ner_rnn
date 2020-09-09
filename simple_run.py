@@ -26,6 +26,8 @@ print("Dataset ready")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
+import os
+print(os.getcwd())
 ft_vectors = gensim.models.fasttext.load_facebook_model('../drive/\'My Drive\'/ner_rnn_2/fasttext/wiki.simple.bin')
 print('fasttext loaded')
 
