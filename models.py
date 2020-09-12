@@ -65,8 +65,14 @@ class LstmCrf(nn.Module):
                 torch.randn(2, batch_size, self.hidden_dim, device=self.device))
 
     def _lstm(self, x, x_char):
+        print('x_char: ', type(x_char))
+        print(x_char)
+        print('x: ', type(x))
+        print(x)
         emb = self.embeddings(x)
         char_emb = self.cnn_embeddings(x_char)
+        print('char_emb: ', type(char_emb))
+        print(char_emb)
 
         char_emb = char_emb.unsqueeze(1).repeat(1, x.shape[1], 1)
         emb_cat = torch.cat([emb, char_emb], dim=2)

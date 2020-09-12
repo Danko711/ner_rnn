@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader
 import pandas as pd
 import gensim
 import time
-from catalyst import dl
+#from catalyst import dl
 
 from models import LstmCrf
 from data import Conll2003DatasetReader, ConllDataset
@@ -34,6 +34,12 @@ print('fasttext loaded')
 
 train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSequence())
 test_dl = DataLoader(data_val, batch_size=64, shuffle=True, collate_fn=PadSequence())
+
+for i in train_dl:
+    print(len(i))
+    print(i)
+    print(type(i))
+
 
 
 
