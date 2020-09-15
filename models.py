@@ -84,12 +84,10 @@ class LstmCrf(nn.Module):
         #score, path = self.crf.decode(emissions, mask=mask)
         path = self.crf.decode(emissions, mask=mask)
 
-        print("path: ", type(path))
         #return score, path
         return path
 
     def loss(self, x, x_char, y, mask=None):
         emissions = self._lstm(x, x_char)
         nll = -self.crf(emissions, y, mask=mask)
-        print("nll: ", nll)
         return nll
