@@ -49,7 +49,7 @@ loss = model.loss
 optimizer = optim.Adam(model.parameters())
 
 
-class CustomRunner(dl.runner):
+class CustomRunner(dl.Runner):
 
     def _handle_batch(self, batch):
         sents, chars, lengths, tags = batch
