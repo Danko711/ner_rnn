@@ -67,7 +67,10 @@ class CustomRunner(dl.Runner):
         seq = torch.nn.utils.rnn.pad_sequence(seq_tens, batch_first=True).cpu().numpy()
         seq = torch.Tensor(seq)
 
-        f1 = ner_token_f1(tags, seq)
+        total_preds = [vectorizer.devectorize(i) for i in seq]
+        total_tags = [vectorizer.devectorize(i) for i in tags]
+
+        f1 = ner_token_f1(total_tags, total_preds)
 
         self.batch_metrics.update({"loss": loss, "F1": f1})
 
