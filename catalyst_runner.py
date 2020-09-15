@@ -87,7 +87,7 @@ runner = CustomRunner()
 runner.train(model=model,
              optimizer=optimizer,
              loaders={'train': train_dl, 'valid': valid_dl},
-             num_epochs=3,
-             verbose=True,
-             timeit=True
+             num_epochs=5,
+             verbose=False,
+             timeit=False
              )
