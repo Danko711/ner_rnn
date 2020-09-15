@@ -32,11 +32,6 @@ print('fasttext loaded')
 train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSequence())
 valid_dl = DataLoader(data_val, batch_size=64, shuffle=True, collate_fn=PadSequence())
 
-for i in train_dl:
-    print(len(i))
-    print(i)
-    print(type(i))
-
 model = LstmCrf(ft_vectors.wv.vectors,
                 vectorizer.size(),
                 vectorizer.tag_size(),
