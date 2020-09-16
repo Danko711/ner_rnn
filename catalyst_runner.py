@@ -68,7 +68,7 @@ class CustomRunner(dl.Runner):
         total_preds = [vectorizer.devectorize(i) for i in seq]
         total_tags = [vectorizer.devectorize(i) for i in tags]
 
-        self.input = {'sents': sents, 'chars': chars, 'mask': mask, 'target': tags, 'total_tags': total_tags}
+        self.input = {'x': sents, 'x_char': chars, 'mask': mask, 'y': tags, 'total_tags': total_tags}
         self.output = {'preds': total_preds}
 
 
