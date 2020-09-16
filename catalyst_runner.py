@@ -90,7 +90,7 @@ runner.train(model=model,
                  ),
                  "criterion": dl.CriterionCallback(
                      input_key=['sents', 'chars', 'target', 'mask'],
-                     output_key="preds"
+                     output_key=["preds"]
                  ),
                  "metric": dl.MetricCallback(
                      input_key='total_tags',
