@@ -74,6 +74,8 @@ class LstmCrf(nn.Module):
 
         x, _ = self.lstm(emb_cat, hidden)
 
+        print('x: ', x.size())
+
         emissions = self.fc(x)
         emissions = F.softmax(emissions, dim=1)
 
