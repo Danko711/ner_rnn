@@ -60,8 +60,6 @@ class CustomRunner(dl.Runner):
         mask = (tags != Const.PAD_TAG_ID).float()
         mask.to(device)
 
-        loss = self.model.loss(sents, chars, tags, mask)
-
         seq = model(sents, chars, mask)
         seq_tens = [torch.Tensor(s) for s in seq]
         seq = torch.nn.utils.rnn.pad_sequence(seq_tens, batch_first=True).cpu().numpy()
@@ -70,9 +68,8 @@ class CustomRunner(dl.Runner):
         total_preds = [vectorizer.devectorize(i) for i in seq]
         total_tags = [vectorizer.devectorize(i) for i in tags]
 
-        f1 = ner_token_f1(total_tags, total_preds)
-
-        self.batch_metrics.update({"loss": loss, "F1": f1})
+        self.input = {'sents': sents, 'chars': chars, 'mask': mask, 'target': tags, 'total_tags': total_tags}
+        self.output = {'preds': total_preds}
 
 
 
@@ -90,6 +87,17 @@ runner.train(model=model,
                      metric_key="loss",
                      accumulation_steps=1,
                      grad_clip_params=None
+                 ),
+                 "criterion": dl.CriterionCallback(
+                     input_key="total_tags",
+                     output_key="preds"
+                 ),
+                 "metric": dl.MetricCallback(
+                     input_key='total_tags',
+                     output_key='preds',
+                     prefix='F1_token',
+                     metric_fn=ner_token_f1
+
                  )
              }
              )
