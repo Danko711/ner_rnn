@@ -74,20 +74,22 @@ class CustomRunner(dl.Runner):
 
         self.batch_metrics.update({"loss": loss, "F1": f1})
 
-        #torch.nn.utils.clip_grad_norm_(model.parameters(), 1)
-
-        if self.is_train_loader:
-            loss.backward()
-            optimizer.step()
-            optimizer.zero_grad()
 
 
 runner = CustomRunner()
 
 runner.train(model=model,
+             criterion=loss,
              optimizer=optimizer,
              loaders={'train': train_dl, 'valid': valid_dl},
              num_epochs=5,
              verbose=False,
-             timeit=False
+             timeit=False,
+             callbacks={
+                 "optimizer": dl.OptimizerCallback(
+                     metric_key="loss",
+                     accumulation_steps=1,
+                     grad_clip_params=None
+                 )
+             }
              )
