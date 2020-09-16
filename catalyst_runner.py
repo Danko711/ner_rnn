@@ -89,7 +89,7 @@ runner.train(model=model,
                      grad_clip_params=None
                  ),
                  "criterion": dl.CriterionCallback(
-                     input_key="total_tags",
+                     input_key=['sents', 'chars', 'target', 'mask'],
                      output_key="preds"
                  ),
                  "metric": dl.MetricCallback(
