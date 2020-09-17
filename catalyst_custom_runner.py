@@ -95,7 +95,7 @@ runner.train(model=model,
                      grad_clip_params=None
                  ),
                  "criterion": dl.CriterionCallback(
-                     input_key=['x', 'x_char', 'y', 'mask'],
+                     input_key=['x', 'x_char', 'y'], #'mask': mask,
                      output_key=[]
                  ),
                  "metric": dl.MetricCallback(
