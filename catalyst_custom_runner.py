@@ -5,6 +5,7 @@ import pandas as pd
 import gensim
 import time
 from catalyst import dl
+from catalyst.contrib.nn.schedulers.onecycle import OneCycleLRWithWarmup
 
 from models import LstmCrf
 from metrics import ner_token_f1
@@ -44,10 +45,13 @@ model = LstmCrf(ft_vectors.wv.vectors,
 
 model.to(device)
 
+dataloaders = {'train': train_dl, 'valid': valid_dl}
+
 loss = model.loss
 
 optimizer = optim.Adam(model.parameters())
-#scheduler = optim.lr_scheduler.
+scheduler = OneCycleLRWithWarmup(num_steps=4, lr_range=[7.5e-5, 1.5e-5, 1.0e-5], init_lr=3.0e-5, warmup_steps=1,
+                                 decay_steps=1)
 
 
 class CustomRunner(dl.Runner):
@@ -79,10 +83,11 @@ runner = CustomRunner()
 runner.train(model=model,
              criterion=loss,
              optimizer=optimizer,
-             loaders={'train': train_dl, 'valid': valid_dl},
+             loaders=dataloaders,
              num_epochs=50,
              verbose=False,
              timeit=False,
+             scheduler=scheduler,
              callbacks={
                  "optimizer": dl.OptimizerCallback(
                      metric_key="loss",
