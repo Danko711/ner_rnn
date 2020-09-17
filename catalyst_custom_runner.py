@@ -73,6 +73,10 @@ class CustomRunner(dl.Runner):
         total_preds = [vectorizer.devectorize(i) for i in seq]
         total_tags = [vectorizer.devectorize(i) for i in tags]
 
+        if len(total_tags) != len(total_preds):
+            print('tags: ', len(total_tags))
+            print('preds', len(total_preds))
+
         self.input = {'x': sents, 'x_char': chars, 'y': tags, 'total_tags': total_tags} #'mask': mask,
         self.output = {'preds': total_preds}
 
