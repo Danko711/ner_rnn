@@ -60,9 +60,12 @@ class LstmCrf(nn.Module):
         #self.crf = CRFDevice(nb_labels, Const.BOS_TAG_ID, Const.EOS_TAG_ID, device=device)
         self.crf = CRF(nb_labels, True)
 
-    def init_hidden(self, batch_size):
+    def _init_hidden(self, batch_size):
         return (torch.randn(2, batch_size, self.hidden_dim, device=self.device),
                 torch.randn(2, batch_size, self.hidden_dim, device=self.device))
+
+    def _get_mask(self, tags):
+        return (tags != Const.PAD_TAG_ID).float()
 
     def _lstm(self, x, x_char):
         emb = self.embeddings(x)
@@ -70,7 +73,7 @@ class LstmCrf(nn.Module):
 
         char_emb = char_emb.unsqueeze(1).repeat(1, x.shape[1], 1)
         emb_cat = torch.cat([emb, char_emb], dim=2)
-        hidden = self.init_hidden(x.shape[0])
+        hidden = self._init_hidden(x.shape[0])
 
         x, _ = self.lstm(emb_cat, hidden)
 

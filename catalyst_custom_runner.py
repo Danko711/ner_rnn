@@ -47,6 +47,7 @@ model.to(device)
 loss = model.loss
 
 optimizer = optim.Adam(model.parameters())
+#scheduler = optim.lr_scheduler.
 
 
 class CustomRunner(dl.Runner):
@@ -79,7 +80,7 @@ runner.train(model=model,
              criterion=loss,
              optimizer=optimizer,
              loaders={'train': train_dl, 'valid': valid_dl},
-             num_epochs=5,
+             num_epochs=50,
              verbose=False,
              timeit=False,
              callbacks={
@@ -97,6 +98,7 @@ runner.train(model=model,
                      output_key='preds',
                      prefix='F1_token',
                      metric_fn=ner_token_f1
+
 
                  )
              }
