@@ -50,8 +50,8 @@ dataloaders = {'train': train_dl, 'valid': valid_dl}
 loss = model.loss
 
 optimizer = optim.Adam(model.parameters())
-scheduler = OneCycleLRWithWarmup(num_steps=4, lr_range=[7.5e-5, 1.5e-5, 1.0e-5], init_lr=3.0e-5, warmup_steps=1,
-                                 decay_steps=1)
+scheduler = OneCycleLRWithWarmup(optimizer=optimizer, num_steps=4, lr_range=[7.5e-5, 1.5e-5, 1.0e-5], init_lr=3.0e-5,
+                                 warmup_steps=1, decay_steps=1)
 
 
 class CustomRunner(dl.Runner):

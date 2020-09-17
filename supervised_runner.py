@@ -31,6 +31,7 @@ print('fasttext loaded')
 
 train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSequence())
 valid_dl = DataLoader(data_val, batch_size=64, shuffle=True, collate_fn=PadSequence())
+dataloaders = {'train': train_dl, 'valid': valid_dl}
 
 model = LstmCrf(ft_vectors.wv.vectors,
                 vectorizer.size(),
@@ -47,5 +48,7 @@ model.to(device)
 loss = model.loss
 
 optimizer = optim.Adam(model.parameters())
+scheduler = OneCycleLRWithWarmup(num_steps=4, lr_range=[7.5e-5, 1.5e-5, 1.0e-5], init_lr=3.0e-5, warmup_steps=1,
+                                 decay_steps=1)
 
-runner = dl.SupervisedRunner
+runner = dl.SupervisedRunner()
