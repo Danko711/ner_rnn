@@ -44,11 +44,28 @@ model = LstmCrf(ft_vectors.wv.vectors,
                 device=device)
 
 model.to(device)
-
 loss = model.loss
 
 optimizer = optim.Adam(model.parameters())
 scheduler = OneCycleLRWithWarmup(num_steps=4, lr_range=[7.5e-5, 1.5e-5, 1.0e-5], init_lr=3.0e-5, warmup_steps=1,
                                  decay_steps=1)
+
+callbacks = {
+    "optimizer": dl.OptimizerCallback(
+        metric_key="loss",
+        accumulation_steps=1,
+        grad_clip_params=None
+    ),
+    "criterion": dl.CriterionCallback(
+        input_key=['x', 'x_char', 'y', 'mask'],
+        output_key=[]
+    ),
+    "metric": dl.MetricCallback(
+        input_key='total_tags',
+        output_key='preds',
+        prefix='F1_token',
+        metric_fn=ner_token_f1
+    )
+}
 
 runner = dl.SupervisedRunner()

@@ -64,8 +64,8 @@ class LstmCrf(nn.Module):
         return (torch.randn(2, batch_size, self.hidden_dim, device=self.device),
                 torch.randn(2, batch_size, self.hidden_dim, device=self.device))
 
-    def _get_mask(self, tags):
-        return (tags != Const.PAD_TAG_ID).float()
+    def _get_mask(self, tokens):
+        return (tokens != Const.PAD_ID).float()
 
     def _lstm(self, x, x_char):
         emb = self.embeddings(x)
@@ -82,7 +82,8 @@ class LstmCrf(nn.Module):
 
         return emissions
 
-    def forward(self, x, x_char, mask=None):
+    def forward(self, x, x_char):
+        mask = self._get_mask(x)
         emissions = self._lstm(x, x_char)
         #score, path = self.crf.decode(emissions, mask=mask)
         path = self.crf.decode(emissions, mask=mask)
@@ -90,7 +91,8 @@ class LstmCrf(nn.Module):
         #return score, path
         return path
 
-    def loss(self, x, x_char, y, mask=None):
+    def loss(self, x, x_char, y):
+        mask = self._get_mask(x)
         emissions = self._lstm(x, x_char)
         nll = -self.crf(emissions, y, mask=mask)
         return nll
