@@ -87,7 +87,7 @@ runner.train(model=model,
              num_epochs=50,
              verbose=False,
              timeit=False,
-             scheduler=scheduler,
+             scheduler=None,
              callbacks={
                  "optimizer": dl.OptimizerCallback(
                      metric_key="loss",
