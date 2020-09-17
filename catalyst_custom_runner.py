@@ -62,10 +62,10 @@ class CustomRunner(dl.Runner):
         self.model.train()
 
         sents, chars, tags = sents.to(device), chars.to(device), tags.to(device)
-        mask = (tags != Const.PAD_TAG_ID).float()
-        mask.to(device)
+        #mask = (tags != Const.PAD_TAG_ID).float()
+        #mask.to(device)
 
-        seq = model(sents, chars, mask)
+        seq = model(sents, chars)#, mask)
         seq_tens = [torch.Tensor(s) for s in seq]
         seq = torch.nn.utils.rnn.pad_sequence(seq_tens, batch_first=True).cpu().numpy()
         seq = torch.Tensor(seq)
@@ -73,7 +73,7 @@ class CustomRunner(dl.Runner):
         total_preds = [vectorizer.devectorize(i) for i in seq]
         total_tags = [vectorizer.devectorize(i) for i in tags]
 
-        self.input = {'x': sents, 'x_char': chars, 'mask': mask, 'y': tags, 'total_tags': total_tags}
+        self.input = {'x': sents, 'x_char': chars, 'y': tags, 'total_tags': total_tags} #'mask': mask,
         self.output = {'preds': total_preds}
 
 
