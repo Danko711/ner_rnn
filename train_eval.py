@@ -13,11 +13,11 @@ def train(model, iterator, optimizer, clip):
     epoch_loss = 0
     for i, (sents, chars, lengths, tags) in tqdm(enumerate(iterator), total=len(iterator)):
         sents, chars, tags = sents.to(device), chars.to(device), tags.to(device)
-        mask = (tags != Const.PAD_TAG_ID).float()
-        mask.to(device)
+        #mask = (tags != Const.PAD_TAG_ID).float()
+        #mask.to(device)
         optimizer.zero_grad()
 
-        loss = model.loss(sents, chars, tags, mask)
+        loss = model.loss(sents, chars, tags)#, mask)
 
         loss.backward()
 
@@ -36,11 +36,11 @@ def evaluate(model, iterator, vectorizer):
     with torch.no_grad():
         for i, (sents, chars, lengths, tags) in tqdm(enumerate(iterator), total=len(iterator)):
             sents, chars, tags = sents.to(device), chars.to(device), tags.to(device)
-            mask = (tags != Const.PAD_TAG_ID).float()
-            mask.to(device)
-            loss = model.loss(sents, chars, tags, mask)
+            #mask = (tags != Const.PAD_TAG_ID).float()
+            #mask.to(device)
+            loss = model.loss(sents, chars, tags)#, mask)
 
-            seq = model(sents, chars, mask)
+            seq = model(sents, chars)#, mask)
             seq_tens = [torch.Tensor(s) for s in seq]
             seq = torch.nn.utils.rnn.pad_sequence(seq_tens, batch_first=True).cpu().numpy()
             seq = torch.Tensor(seq)
