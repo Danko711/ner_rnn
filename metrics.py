@@ -102,9 +102,9 @@ def _global_stats_f1(results):
 
 def ner_token_f1(y_true, y_pred, print_results=False):
 
-    print('########################')
-    print('true: ', len(y_true))
-    print('pred: ', len(y_pred))
+    if len(y_true) != len(y_pred):
+        print('true: ', y_true)
+        print('pred: ', y_pred)
 
     y_true = list(chain(*y_true))
     y_pred = list(chain(*y_pred))
