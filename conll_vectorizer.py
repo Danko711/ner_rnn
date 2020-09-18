@@ -2,7 +2,7 @@ import torch
 
 
 class Const:
-    UNK_ID, UNK_TOKEN = 1, "<unk>"
+    UNK_ID, UNK_TOKEN = -2, "<unk>"
     PAD_ID, PAD_TOKEN = -1, "<pad>"
     PAD_TAG_ID, PAD_TAG_TOKEN = -1, "<pad>"
 
