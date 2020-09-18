@@ -56,11 +56,7 @@ scheduler = OneCycleLRWithWarmup(optimizer=optimizer, num_steps=4, lr_range=[7.5
 
 class CustomRunner(dl.Runner):
 
-    def predict_batch(self, batch):
-
-
-
-
+ 
     def _handle_batch(self, batch):
         sents, chars, lengths, tags = batch
 
