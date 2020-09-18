@@ -52,8 +52,9 @@ def evaluate(model, iterator, vectorizer):
 
             epoch_loss += loss.item()
 
-    print('tags: ', len(chain(*total_tags)))
-    print('preds: ', len(chain(*total_preds)))
+
+    print('tags: ', len(list(chain(*total_tags))))
+    print('preds: ', len(list(chain(*total_preds))))
 
     f1 = ner_token_f1(total_tags, total_preds)
     return epoch_loss / len(iterator), f1
