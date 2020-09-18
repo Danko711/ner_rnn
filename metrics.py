@@ -101,12 +101,15 @@ def _global_stats_f1(results):
 
 
 def ner_token_f1(y_true, y_pred, print_results=False):
-    y_true = list(chain(*y_true))
-    y_pred = list(chain(*y_pred))
 
     print('########################')
     print('true: ', len(y_true))
     print('pred: ', len(y_pred))
+
+    y_true = list(chain(*y_true))
+    y_pred = list(chain(*y_pred))
+
+
 
     # Drop BIO or BIOES markup
     assert all(len(str(tag).split('-')) <= 2 for tag in y_true)
