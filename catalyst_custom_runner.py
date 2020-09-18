@@ -73,8 +73,8 @@ class CustomRunner(dl.Runner):
 
 
         if seq.size()[1] != tags.size()[1]:
-            for i in seq_tens:
-                print(i.size())
+            for i, j in zip(seq_tens, tags):
+                print(i.size(), j.size())
 
 
         total_preds = [vectorizer.devectorize(i) for i in seq]
