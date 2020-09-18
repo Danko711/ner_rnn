@@ -56,7 +56,7 @@ scheduler = OneCycleLRWithWarmup(optimizer=optimizer, num_steps=4, lr_range=[7.5
 
 class CustomRunner(dl.Runner):
 
- 
+
     def _handle_batch(self, batch):
         sents, chars, lengths, tags = batch
 
@@ -70,6 +70,9 @@ class CustomRunner(dl.Runner):
         seq_tens = [torch.Tensor(s) for s in seq]
         seq = torch.nn.utils.rnn.pad_sequence(seq_tens, batch_first=True).cpu().numpy()
         seq = torch.Tensor(seq)
+
+        print(seq_tens.size())
+        print(tags.size())
 
         total_preds = [vectorizer.devectorize(i) for i in seq]
         total_tags = [vectorizer.devectorize(i) for i in tags]
