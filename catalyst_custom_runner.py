@@ -20,6 +20,17 @@ tags = pd.Series([i[1] for i in data['train']])
 
 vectorizer = Vectorizer(texts=texts, tags=tags)
 
+
+seq = [    1, 18273, 22567, 17718, 21689,  9043, 23337, 13690, 20667, 22722,
+          111, 14041, 21549, 20984, 14804,     1, 17734, 19432, 17718, 17497,
+        14041, 21614, 22568,  5538, 23314, 15699,     1,  4151,     1,     1,
+           13,  7301, 18223,  7383,    14, 14041,     1,  7019, 17139,  5540,
+            0,     1]
+
+for i in seq:
+    print(vectorizer.lookup_token((i)))
+
+
 data_train = ConllDataset(data, 'train', vectorizer)
 data_val = ConllDataset(data, 'valid', vectorizer)
 print("Dataset ready")
