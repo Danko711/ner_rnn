@@ -32,8 +32,8 @@ ft_vectors = gensim.models.fasttext.load_facebook_model('./fasttext/fasttext/wik
 print('fasttext loaded')
 print(type(ft_vectors.wv.vectors))
 
-train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSequence())
-test_dl = DataLoader(data_val, batch_size=64, shuffle=True, collate_fn=PadSequence())
+train_dl = DataLoader(data_train, batch_size=64, shuffle=False, collate_fn=PadSequence())
+test_dl = DataLoader(data_val, batch_size=64, shuffle=False, collate_fn=PadSequence())
 
 
 model = LstmCrf(ft_vectors.wv.vectors,
