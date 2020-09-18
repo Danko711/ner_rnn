@@ -71,7 +71,7 @@ class CustomRunner(dl.Runner):
         seq = torch.nn.utils.rnn.pad_sequence(seq_tens, batch_first=True).cpu().numpy()
         seq = torch.Tensor(seq)
 
-        print(seq_tens.size())
+        print(seq.size())
         print(tags.size())
 
         total_preds = [vectorizer.devectorize(i) for i in seq]
