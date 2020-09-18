@@ -119,6 +119,10 @@ def ner_token_f1(y_true, y_pred, print_results=False):
     for tag, tag_ind in tags_dict.items():
         if tag == 'O':
             continue
+        print('##############################')
+        print('true: ', len(y_true_inds))
+        print('pred: ', len(y_pred_inds))
+        print('tag: ', len(tag_ind))
         tp = np.sum((y_true_inds == tag_ind) & (y_pred_inds == tag_ind))
         fn = np.sum((y_true_inds == tag_ind) & (y_pred_inds != tag_ind))
         fp = np.sum((y_true_inds != tag_ind) & (y_pred_inds == tag_ind))
