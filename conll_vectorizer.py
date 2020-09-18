@@ -3,8 +3,8 @@ import torch
 
 class Const:
     UNK_ID, UNK_TOKEN = 1, "<unk>"
-    PAD_ID, PAD_TOKEN = 0, "<pad>"
-    PAD_TAG_ID, PAD_TAG_TOKEN = 0, "<pad>"
+    PAD_ID, PAD_TOKEN = -1, "<pad>"
+    PAD_TAG_ID, PAD_TAG_TOKEN = -1, "<pad>"
 
 
 
