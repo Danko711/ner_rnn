@@ -73,6 +73,7 @@ class CustomRunner(dl.Runner):
 
 
         if seq.size()[1] != tags.size()[1]:
+            print(sents[0])
             for i, j in zip(seq_tens, lengths):
                 print(i.size(), j)
 
