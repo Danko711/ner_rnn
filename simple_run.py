@@ -36,7 +36,7 @@ print(ft_vectors.wv.vectors.shape)
 print(ft_vectors.wv.vectors_vocab)
 
 train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSequence())
-test_dl = DataLoader(data_val, batch_size=64, shuffle=False, collate_fn=PadSequence())
+test_dl = DataLoader(data_val, batch_size=64, shuffle=True, collate_fn=PadSequence())
 
 
 model = LstmCrf(ft_vectors.wv.vectors,
