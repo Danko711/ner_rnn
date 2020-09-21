@@ -18,6 +18,7 @@ texts = pd.Series([i[0] for i in data['train']])
 tags = pd.Series([i[1] for i in data['train']])
 
 vectorizer = Vectorizer(texts=texts, tags=tags)
+print(len(vectorizer.index2Word))
 
 data_train = ConllDataset(data, 'train', vectorizer)
 data_val = ConllDataset(data, 'valid', vectorizer)
