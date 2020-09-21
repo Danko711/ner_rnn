@@ -14,6 +14,11 @@ class Vectorizer(object):
         Const.PAD_TOKEN: Const.PAD_ID
     }
 
+    base_ix_to_word = {
+        Const.UNK_ID: Const.UNK_TOKEN,
+        Const.PAD_ID: Const.PAD_TOKEN
+    }
+
     tag_to_ix = {
         Const.PAD_TAG_TOKEN: Const.PAD_TAG_ID
     }
@@ -22,6 +27,9 @@ class Vectorizer(object):
         tokens = set([token for seq in texts for token in seq])
         self.word2Index = {word: index for index, word in enumerate(sorted(tokens))}
         self.index2Word = {index: word for index, word in enumerate(sorted(tokens))}
+        self.word2Index = {**self.word2Index, **Vectorizer.base_word_to_ix}
+        self.index2Word = {**self.index2Word, **Vectorizer.base_ix_to_word}
+
         char_tokens = set(list('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя'))
         self.char2Index = {str(char): index for index, char in enumerate(sorted(char_tokens))}
         self.index2Char = {index: str(char) for index, char in enumerate(sorted(char_tokens))}
