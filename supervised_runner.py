@@ -17,7 +17,11 @@ data = reader.read(dataset_name='conll2003', data_path='./')
 texts = pd.Series([i[0] for i in data['train']])
 tags = pd.Series([i[1] for i in data['train']])
 
-vectorizer = Vectorizer(texts=texts, tags=tags)
+print('start loading fasttext')
+ft_vectors = gensim.models.fasttext.load_facebook_model('./fasttext/fasttext/wiki.simple.bin')
+print('Fasttext loaded')
+vectorizer = Vectorizer(texts=texts, tags=tags, word_embedder=ft_vectors)
+print('vectorizer ready')
 
 data_train = ConllDataset(data, 'train', vectorizer)
 data_val = ConllDataset(data, 'valid', vectorizer)
@@ -26,14 +30,11 @@ print("Dataset ready")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
-ft_vectors = gensim.models.fasttext.load_facebook_model('./fasttext/fasttext/wiki.simple.bin')
-print('fasttext loaded')
-
 train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSequence())
 valid_dl = DataLoader(data_val, batch_size=64, shuffle=True, collate_fn=PadSequence())
 dataloaders = {'train': train_dl, 'valid': valid_dl}
 
-model = LstmCrf(ft_vectors.wv.vectors,
+model = LstmCrf(vectorizer.embedding_matrix,
                 vectorizer.size(),
                 vectorizer.tag_size(),
                 embedding_dim=300,
@@ -57,7 +58,7 @@ callbacks = {
         grad_clip_params=None
     ),
     "criterion": dl.CriterionCallback(
-        input_key=['x', 'x_char', 'y', 'mask'],
+        input_key=['x', 'x_char', 'y'],
         output_key=[]
     ),
     "metric": dl.MetricCallback(
@@ -68,4 +69,22 @@ callbacks = {
     )
 }
 
-runner = dl.SupervisedRunner()
+runner = dl.SupervisedRunner(
+    input_key=['x', 'x_char'],
+    output_key="preds",
+    input_target_key="y",
+)
+
+runner.train(
+    model=model,
+    criterion=loss,
+    optimizer=optimizer,
+    scheduler=scheduler,
+    loaders=dataloaders,
+    callbacks=callbacks,
+    logdir='./checkpoints',
+    num_epochs=100,
+    main_metric='F1_token',
+    minimize_metric=False,
+    verbose=True
+)
