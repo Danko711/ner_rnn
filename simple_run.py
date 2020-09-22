@@ -17,6 +17,10 @@ data = reader.read(dataset_name='conll2003', data_path='./')
 texts = pd.Series([i[0] for i in data['train']])
 tags = pd.Series([i[1] for i in data['train']])
 
+ft_vectors = gensim.models.fasttext.load_facebook_model('./fasttext/fasttext/wiki.simple.bin')
+
+vectorizer = Vectorizer(texts=texts, tags=tags, word_embedder=ft_vectors)
+
 
 data_train = ConllDataset(data, 'train', vectorizer)
 data_val = ConllDataset(data, 'valid', vectorizer)
@@ -27,9 +31,6 @@ print(device)
 
 import os
 print(os.getcwd())
-ft_vectors = gensim.models.fasttext.load_facebook_model('./fasttext/fasttext/wiki.simple.bin')
-
-vectorizer = Vectorizer(texts=texts, tags=tags, word_embedder=ft_vectors)
 
 
 train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSequence())
