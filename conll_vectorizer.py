@@ -5,7 +5,7 @@ import numpy as np
 class Const:
     UNK_ID, UNK_TOKEN = 1, "<unk>"
     PAD_ID, PAD_TOKEN = 0, "<pad>"
-    PAD_TAG_ID, PAD_TAG_TOKEN = 1, "<pad>"
+    PAD_TAG_ID, PAD_TAG_TOKEN = 0, "<pad>"
 
 
 
@@ -43,7 +43,7 @@ class Vectorizer(object):
         len_tags = len(Vectorizer.tag_to_ix)
         tags = set([tag for seq in tags for tag in seq])
 
-        self.tags2Index = {tag: len_tags + index for index, tag in enumerate(sorted(tags), start=2)}
+        self.tags2Index = {tag: len_tags + index for index, tag in enumerate(sorted(tags), start=1)}
         self.tags2Index = {**self.tags2Index, **Vectorizer.tag_to_ix}
         self.index2tags = {index: tag for tag, index in self.tags2Index.items()}
 
