@@ -43,8 +43,8 @@ class Vectorizer(object):
         len_tags = len(Vectorizer.tag_to_ix)
         tags = set([tag for seq in tags for tag in seq])
 
-        self.tags2Index = {tag: len_tags + index for index, tag in enumerate(sorted(tags), start=1)}
-        self.tags2Index = {**self.tags2Index, **Vectorizer.tag_to_ix}
+        self.tags2Index = {tag: len_tags + index for index, tag in enumerate(sorted(tags))}
+
         self.index2tags = {index: tag for tag, index in self.tags2Index.items()}
 
         if word_embedder:
