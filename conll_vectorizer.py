@@ -23,7 +23,10 @@ class Vectorizer(object):
         Const.PAD_TAG_TOKEN: Const.PAD_TAG_ID
     }
 
-    def __init__(self, texts, tags):
+    def __init__(self, texts, tags, word_embedder=None):
+
+
+
         tokens = set([token for seq in texts for token in seq])
         self.word2Index = {word: index for index, word in enumerate(sorted(tokens))}
         self.index2Word = {index: word for index, word in enumerate(sorted(tokens))}
@@ -42,6 +45,11 @@ class Vectorizer(object):
         self.tags2Index = {tag: len_tags + index for index, tag in enumerate(sorted(tags))}
         self.tags2Index = {**self.tags2Index, **Vectorizer.tag_to_ix}
         self.index2tags = {index: tag for tag, index in self.tags2Index.items()}
+
+        if word_embedder:
+            self.embedding_dict = dict()
+            for ix, word in self.index2Word.items():
+                self.embedding_dict[ix] = word_embedder[word]
 
     def lookup_index(self, token):
         if token in Vectorizer.base_word_to_ix:
