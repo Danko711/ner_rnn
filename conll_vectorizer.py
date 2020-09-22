@@ -50,7 +50,7 @@ class Vectorizer(object):
         if word_embedder:
             self.embedding_matrix = list()
             for ix in sorted(self.index2Word.keys()):
-                self.embedding_matrix[ix] = word_embedder[self.index2Word[ix]]
+                self.embedding_matrix.append(word_embedder[self.index2Word[ix]])
 
     def lookup_index(self, token):
         if token in Vectorizer.base_word_to_ix:
