@@ -60,7 +60,7 @@ callbacks = {
     ),
     "criterion": dl.CriterionCallback(
         input_key=['x', 'x_char', 'y'],
-        output_key='pred'
+        output_key='preds'
     ),
     "metric": dl.MetricCallback(
         input_key='total_tags',
@@ -72,7 +72,7 @@ callbacks = {
 
 runner = dl.SupervisedRunner(
     input_key=['x', 'x_char'],
-    output_key="preds",
+    output_key='preds',
     input_target_key="y",
 )
 
