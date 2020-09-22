@@ -94,8 +94,8 @@ class PadSequence(object):
         char_sequences = [x[1] for x in sorted_batch]
         char_sequences_padded = torch.nn.utils.rnn.pad_sequence(char_sequences, batch_first=True)
 
-        lengths = torch.LongTensor([len(x) for x in sequences])
+        #lengths = torch.LongTensor([len(x) for x in sequences])
         labels = [x[2] for x in sorted_batch]
         labels_padded = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True)
 
-        return sequences_padded, char_sequences_padded, lengths, labels_padded
+        return sequences_padded, char_sequences_padded, labels_padded

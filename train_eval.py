@@ -13,7 +13,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def train(model, iterator, optimizer, clip):
     model.train()
     epoch_loss = 0
-    for i, (sents, chars, lengths, tags) in tqdm(enumerate(iterator), total=len(iterator)):
+    for i, (sents, chars, tags) in tqdm(enumerate(iterator), total=len(iterator)):
         sents, chars, tags = sents.to(device), chars.to(device), tags.to(device)
         #mask = (tags != Const.PAD_TAG_ID).float()
         #mask.to(device)
@@ -36,7 +36,7 @@ def evaluate(model, iterator, vectorizer):
     total_preds = []
     total_tags = []
     with torch.no_grad():
-        for i, (sents, chars, lengths, tags) in tqdm(enumerate(iterator), total=len(iterator)):
+        for i, (sents, chars, tags) in tqdm(enumerate(iterator), total=len(iterator)):
             sents, chars, tags = sents.to(device), chars.to(device), tags.to(device)
             #mask = (tags != Const.PAD_TAG_ID).float()
             #mask.to(device)
