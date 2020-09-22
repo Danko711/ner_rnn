@@ -60,7 +60,7 @@ callbacks = {
     ),
     "criterion": dl.CriterionCallback(
         input_key=['x', 'x_char', 'y'],
-        output_key=['pred']
+        output_key='pred'
     ),
     "metric": dl.MetricCallback(
         input_key='total_tags',
