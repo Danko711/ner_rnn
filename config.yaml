@@ -26,3 +26,8 @@ stages:
     min_lr: 0.00005
     verbose: True
   epochs: 100
+
+bert_inputs:
+    - features
+    - attention_mask
+    - token_type_ids
