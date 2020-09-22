@@ -50,7 +50,7 @@ loss = model.loss
 
 optimizer = optim.Adam(model.parameters())
 scheduler = OneCycleLRWithWarmup(num_steps=4, lr_range=[7.5e-5, 1.5e-5, 1.0e-5], init_lr=3.0e-5, warmup_steps=1,
-                                 decay_steps=1)
+                                 optimizer=optimizer, decay_steps=1)
 
 callbacks = {
     "optimizer": dl.OptimizerCallback(
