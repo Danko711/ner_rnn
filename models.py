@@ -68,7 +68,7 @@ class LstmCrf(nn.Module):
         return (tokens != Const.PAD_ID).float()
 
     def _lstm(self, x, x_char):
-        emb = x #self.embeddings(x)
+        emb =self.embeddings(x)
         char_emb = self.cnn_embeddings(x_char)
 
         char_emb = char_emb.unsqueeze(1).repeat(1, x.shape[1], 1)

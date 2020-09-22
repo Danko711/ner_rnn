@@ -33,6 +33,9 @@ class Vectorizer(object):
         char_tokens = set(list('АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя'))
         self.char2Index = {str(char): index for index, char in enumerate(sorted(char_tokens))}
         self.index2Char = {index: str(char) for index, char in enumerate(sorted(char_tokens))}
+
+        self.char2Index = {**self.char2Index, **Vectorizer.base_word_to_ix}
+        self.index2Char = {**self.index2Char, **Vectorizer.base_ix_to_word}
         len_tags = len(Vectorizer.tag_to_ix)
         tags = set([tag for seq in tags for tag in seq])
 
