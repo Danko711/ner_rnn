@@ -38,7 +38,7 @@ train_dl = DataLoader(data_train, batch_size=64, shuffle=True, collate_fn=PadSeq
 test_dl = DataLoader(data_val, batch_size=64, shuffle=True, collate_fn=PadSequence())
 
 
-model = LstmCrf(vectorizer.embedding_dict,
+model = LstmCrf(vectorizer.embedding_matrix,
                 vectorizer.size(),
                 vectorizer.tag_size(),
                 embedding_dim=300,
