@@ -59,7 +59,7 @@ callbacks = {
         grad_clip_params=None
     ),
     "criterion": dl.CriterionCallback(
-        input_key=('x', 'x_char', 'y'),
+        input_key=['x', 'x_char', 'y'],
         output_key=['pred']
     ),
     "metric": dl.MetricCallback(
@@ -72,8 +72,8 @@ callbacks = {
 
 runner = dl.SupervisedRunner(
     input_key=['x', 'x_char'],
-    output_key=["preds"],
-    input_target_key=["y"],
+    output_key="preds",
+    input_target_key="y",
 )
 
 runner.train(
