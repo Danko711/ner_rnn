@@ -58,11 +58,7 @@ callbacks = {
         accumulation_steps=1,
         grad_clip_params=None
     ),
-    "criterion": dl.CriterionCallback(
-        input_key=['x', 'x_char', 'y'],  # 'mask': mask,
-        output_key=[],
-       # prefix='loss'
-    ),
+
     "metric": dl.MetricCallback(
         input_key='total_tags',
         output_key='preds',
