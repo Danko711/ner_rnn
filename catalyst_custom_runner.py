@@ -62,7 +62,8 @@ class CustomRunner(dl.Runner):
 
 
     def _handle_batch(self, batch):
-        sents, chars, lengths, tags = batch
+        features, tags = batch
+        sents, chars = features
 
         self.model.train()
 
@@ -76,18 +77,10 @@ class CustomRunner(dl.Runner):
         seq = torch.Tensor(seq)
 
 
-        if seq.size()[1] != tags.size()[1]:
-            print(sents[0])
-            for i, j in zip(seq_tens, lengths):
-                print(i.size(), j)
-
 
         total_preds = [vectorizer.devectorize(i) for i in seq]
         total_tags = [vectorizer.devectorize(i) for i in tags]
 
-        if len(total_tags) != len(total_preds):
-            print('tags: ', len(total_tags))
-            print('preds', len(total_preds))
 
         self.input = {'x': sents, 'x_char': chars, 'y': tags, 'total_tags': total_tags} #'mask': mask,
         self.output = {'preds': total_preds}
