@@ -124,11 +124,6 @@ callbacks = [
         prefix='F1_token',
         metric_fn=ner_token_f1
 
-    ),
-    EarlyStoppingCallback(
-        patience=5,
-        metric="F1_token",
-        minimize=False,
     )
 
 ]
