@@ -66,8 +66,6 @@ class CustomRunner(dl.Runner):
         self.model.train()
 
         sents, chars, tags = sents.to(device), chars.to(device), tags.to(device)
-        # mask = (tags != Const.PAD_TAG_ID).float()
-        # mask.to(device)
 
         seq = model(sents, chars)  # , mask)
         seq_tens = [torch.Tensor(s) for s in seq]

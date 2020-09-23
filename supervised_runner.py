@@ -60,6 +60,7 @@ callbacks = {
     ),
 
     "metric": dl.MetricCallback(
+        scope='batch',
         input_key='y',
         output_key='preds',
         prefix='F1_token',
