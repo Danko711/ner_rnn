@@ -68,7 +68,7 @@ callbacks = {
 }
 
 runner = dl.SupervisedRunner(
-    
+
 )
 
 runner.train(
