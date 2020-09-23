@@ -107,12 +107,6 @@ callbacks = {
              
              """
 
-to_load = {
-   "model": "./checkpoints",
-  "criterion": "best",
-    "optimizer": "last_full",
-
-}
 
 callbacks = [
     dl.OptimizerCallback(
@@ -130,10 +124,6 @@ callbacks = [
         prefix='F1_token',
         metric_fn=ner_token_f1
 
-    ),
-    CheckpointCallback(
-        save_n_best=3,
-        load_on_stage_start=to_load
     ),
     EarlyStoppingCallback(
         patience=5,
