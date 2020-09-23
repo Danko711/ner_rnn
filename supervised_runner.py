@@ -60,7 +60,7 @@ callbacks = {
     ),
 
     "metric": dl.MetricCallback(
-        input_key='total_tags',
+        input_key='y',
         output_key='preds',
         prefix='F1_token',
         metric_fn=ner_token_f1
