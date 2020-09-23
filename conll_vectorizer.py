@@ -98,4 +98,4 @@ class PadSequence(object):
         labels = [x[2] for x in sorted_batch]
         labels_padded = torch.nn.utils.rnn.pad_sequence(labels, batch_first=True)
 
-        return sequences_padded, char_sequences_padded, labels_padded
+        return (sequences_padded, char_sequences_padded), labels_padded

@@ -82,7 +82,8 @@ class LstmCrf(nn.Module):
 
         return emissions
 
-    def forward(self, x, x_char):
+    def forward(self, features):
+        x, x_char = features
         mask = self._get_mask(x)
         emissions = self._lstm(x, x_char)
         #score, path = self.crf.decode(emissions, mask=mask)
@@ -91,7 +92,8 @@ class LstmCrf(nn.Module):
         #return score, path
         return path
 
-    def loss(self, x, x_char, y):
+    def loss(self, features, y):
+        x, x_char = features
         mask = self._get_mask(x)
         emissions = self._lstm(x, x_char)
         nll = -self.crf(emissions, y, mask=mask)

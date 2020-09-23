@@ -68,8 +68,8 @@ callbacks = {
 }
 
 runner = dl.SupervisedRunner(
-    input_key=['x', 'x_char'],
-    output_key=['preds'],
+    input_key='features',
+    output_key='preds',
     input_target_key="y",
 )
 
