@@ -60,7 +60,7 @@ callbacks = {
     ),
     "criterion": dl.CriterionCallback(
         input_key=['x', 'x_char', 'y'],  # 'mask': mask,
-       # output_key=[],
+        output_key=[],
        # prefix='loss'
     ),
     "metric": dl.MetricCallback(
