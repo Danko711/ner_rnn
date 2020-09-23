@@ -59,8 +59,8 @@ callbacks = {
         grad_clip_params=None
     ),
     "criterion": dl.CriterionCallback(
-        input_key='y',
-        output_key=['x', 'x_char'],
+        input_key=['x', 'x_char', 'y'],  # 'mask': mask,
+        output_key=[],
         prefix='loss'
     ),
     "metric": dl.MetricCallback(
