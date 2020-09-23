@@ -7,7 +7,7 @@ import time
 from catalyst import dl
 from catalyst.contrib.nn.schedulers.onecycle import OneCycleLRWithWarmup
 from catalyst.dl.callbacks import EarlyStoppingCallback, CheckpointCallback, OptimizerCallback, \
-    CriterionCallback, CriterionAggregatorCallback
+    CriterionCallback
 
 from models import LstmCrf
 from metrics import ner_token_f1
