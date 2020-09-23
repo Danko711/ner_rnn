@@ -93,18 +93,7 @@ class CustomRunner(dl.Runner):
         self.output = {'preds': total_preds}
 
 
-
-runner = CustomRunner()
-
-runner.train(model=model,
-             criterion=loss,
-             optimizer=optimizer,
-             loaders=dataloaders,
-             num_epochs=50,
-             verbose=False,
-             timeit=False,
-             scheduler=None,
-             callbacks={
+callbacks = {
                  "optimizer": dl.OptimizerCallback(
                      metric_key="loss",
                      accumulation_steps=1,
@@ -123,4 +112,16 @@ runner.train(model=model,
 
                  )
              }
+
+runner = CustomRunner()
+
+runner.train(model=model,
+             criterion=loss,
+             optimizer=optimizer,
+             loaders=dataloaders,
+             num_epochs=50,
+             verbose=False,
+             timeit=False,
+             scheduler=None,
+             callbacks=callbacks
              )
