@@ -61,7 +61,7 @@ callbacks = {
     "criterion": dl.CriterionCallback(
         input_key=['x', 'x_char', 'y'],  # 'mask': mask,
         output_key=[],
-        prefix='loss'
+       # prefix='loss'
     ),
     "metric": dl.MetricCallback(
         input_key='total_tags',
