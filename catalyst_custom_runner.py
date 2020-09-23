@@ -139,5 +139,23 @@ runner.train(model=model,
              timeit=False,
              logdir='./checkpoints',
              scheduler=None,
-             callbacks=callbacks
+             callbacks=[
+    dl.OptimizerCallback(
+        metric_key="loss",
+        accumulation_steps=1,
+        grad_clip_params=None
+    ),
+    dl.CriterionCallback(
+        input_key=['x', 'x_char', 'y'],  # 'mask': mask,
+        output_key=[]
+    ),
+    dl.MetricCallback(
+        input_key='total_tags',
+        output_key='preds',
+        prefix='F1_token',
+        metric_fn=ner_token_f1
+
+    )
+
+]
              )
