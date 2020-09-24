@@ -26,7 +26,11 @@ class Vectorizer(object):
 
     def __init__(self, texts, tags, word_embedder=None):
 
+        self.max_token_len = max(map(len, tags))
+        self.max_char_len = max(map(len, texts))
 
+        print(self.max_token_len)
+        print(self.max_char_len)
 
         tokens = set([token for seq in texts for token in seq])
         self.word2Index = {word: index for index, word in enumerate(sorted(tokens), start=2)}
