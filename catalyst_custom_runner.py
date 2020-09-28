@@ -67,7 +67,7 @@ class CustomRunner(dl.Runner):
 
         sents, chars, tags = sents.to(device), chars.to(device), tags.to(device)
 
-        seq = model(sents, chars)  # , mask)
+        seq = model(features)  # , mask)
         seq_tens = [torch.Tensor(s) for s in seq]
         seq = torch.nn.utils.rnn.pad_sequence(seq_tens, batch_first=True).cpu().numpy()
         seq = torch.Tensor(seq)
