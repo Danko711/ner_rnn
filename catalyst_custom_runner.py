@@ -148,8 +148,8 @@ runner.train(model=model,
         output_key=[]
     ),
     dl.MetricCallback(
-        input_key='total_tags',
-        output_key='preds',
+        input_key=['total_tags'],
+        output_key=['preds'],
         prefix='F1_token',
         metric_fn=ner_token_f1
 
