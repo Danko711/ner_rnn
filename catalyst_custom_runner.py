@@ -130,10 +130,9 @@ runner.train(model=model,
              criterion=loss,
              optimizer=optimizer,
              loaders=dataloaders,
-             num_epochs=100,
+             num_epochs=50,
              verbose=False,
              timeit=False,
-             logdir='./checkpoints',
              scheduler=None,
              callbacks={
                  "optimizer": dl.OptimizerCallback(
